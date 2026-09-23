@@ -1,0 +1,8 @@
+traci==1.27.1
+sumolib==1.27.1
+tud-sumo==3.3.2
+mpl-tools
+shapely
+moviepy
+tqdm
+matplotlib

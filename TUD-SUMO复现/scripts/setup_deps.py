@@ -16,7 +16,7 @@ import sys
 import urllib.request
 import zipfile
 
-BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # reproduce_tud_sumo/
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # TUD-SUMO复现/
 WHEELS = os.path.join(BASE, "_wheels")      # wheel 下载缓存（可随时删除）
 LIBS = os.path.join(BASE, "_pylibs")        # 解压后的依赖库（scripts/common.py 会引用）
 os.makedirs(WHEELS, exist_ok=True)

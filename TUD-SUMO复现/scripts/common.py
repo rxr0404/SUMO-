@@ -18,7 +18,7 @@ import sys
 import tempfile
 
 # ---- 项目目录 ----
-BASE     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # reproduce_tud_sumo/
+BASE     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # TUD-SUMO复现/
 PYLIBS   = os.path.join(BASE, "_pylibs")          # 本地依赖库（scripts/setup_deps.py 生成）
 SCEN     = os.path.join(BASE, "scenario")         # 仿真场景文件
 OUT      = os.path.join(BASE, "outputs")          # 数据/图表输出

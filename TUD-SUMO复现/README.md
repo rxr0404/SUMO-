@@ -1,4 +1,4 @@
-# SUMO / TUD-SUMO 仿真复现 —— 讲解文档
+﻿# SUMO / TUD-SUMO 仿真复现 —— 讲解文档
 
 > 复现对象：**论文B** Evans, Rinaldi, Taale, Hoogendoorn. *TUD-SUMO: A research-oriented
 > SUMO wrapper for traffic simulation in Python*. SoftwareX 34 (2026) 102745.
@@ -27,7 +27,7 @@
 
 ---
 
-## 二、每个文件是什么（reproduce_tud_sumo/ 目录）
+## 二、每个文件是什么（TUD-SUMO复现/ 目录）
 
 ### scenario/ —— 仿真场景（作业的核心资产）
 
@@ -118,7 +118,7 @@ set PATH=C:\sumo_home\bin;%PATH%
 ### 截图 ①：SUMO-GUI 正在跑（对应要求 1）
 
 ```bat
-sumo-gui -c "D:\智能交通\reproduce_tud_sumo\scenario\sim.sumocfg" --start --delay 25
+sumo-gui -c "D:\智能交通\TUD-SUMO复现\scenario\sim.sumocfg" --start --delay 25
 ```
 
 - 窗口打开后仿真**自动开始跑**（`--start`），25ms/步的速度可见车辆移动；
@@ -132,7 +132,7 @@ sumo-gui -c "D:\智能交通\reproduce_tud_sumo\scenario\sim.sumocfg" --start --
 ### 截图 ②：仿真结束统计（对应要求 1+2）
 
 ```bat
-sumo -c "D:\智能交通\reproduce_tud_sumo\scenario\sim.sumocfg"
+sumo -c "D:\智能交通\TUD-SUMO复现\scenario\sim.sumocfg"
 ```
 
 - 无界面模式，约 1 秒跑完，**不要关窗口**；
@@ -145,7 +145,7 @@ sumo -c "D:\智能交通\reproduce_tud_sumo\scenario\sim.sumocfg"
 ### 截图 ③：Python 实时控制 SUMO（对应要求 3，核心）
 
 ```bat
-cd /d D:\智能交通\reproduce_tud_sumo
+cd /d D:\智能交通\TUD-SUMO复现
 python scripts\demo_terminal.py
 ```
 

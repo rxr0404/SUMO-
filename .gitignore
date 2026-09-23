@@ -1,0 +1,19 @@
+﻿# Python
+__pycache__/
+*.pyc
+
+# 本地依赖库与离线安装缓存（setup_deps.py 生成，体积大且可重建）
+TUD-SUMO复现/_pylibs/
+TUD-SUMO复现/_wheels/
+TUD-SUMO复现/_tmp/
+
+# 论文 PDF 与提取的文本（版权原因不上传，仅本地阅读用）
+*.pdf
+_Microscopic_Traffic_Simulation_using_SUM.txt
+_TUD-SUMO-_A_research-oriented_SUMO_wrapp.txt
+_extract.py
+
+# 临时文件
+*.log
+Thumbs.db
+.DS_Store

@@ -23,7 +23,7 @@ import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", line_buffering=True)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-REPRO = os.path.join(os.path.dirname(BASE), "reproduce_tud_sumo")
+REPRO = os.path.join(os.path.dirname(BASE), "TUD-SUMO复现")
 
 # 复用主项目的依赖与 SUMO_HOME 解析逻辑
 sys.path.insert(0, os.path.join(REPRO, "scripts"))
