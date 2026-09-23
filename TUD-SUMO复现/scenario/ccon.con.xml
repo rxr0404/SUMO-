@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 连接定义（汇入点零冲突设计）：
+     M 点：主线 l0->main2 l1，主线 l1->main2 l2（整体向内平移一车道），
+           匝道 ramp2 l0 -> main2 l0（接入最外侧专用道）。
+           三条路径互不交叉 —— 匝道车不需要在停车线处"找空隙"，汇入零阻力；
+           真正的合流发生在 main2 上，由 SUMO 换道模型（LC2013）以真实方式处理。
+     RM 点：ramp1 l0 -> ramp2 l0，受信号灯 RM 控制（匝道控制的对象）。 -->
+<connections>
+    <connection from="main1" to="main2" fromLane="0" toLane="1"/>
+    <connection from="main1" to="main2" fromLane="1" toLane="2"/>
+    <connection from="ramp2" to="main2" fromLane="0" toLane="0"/>
+    <connection from="ramp1" to="ramp2" fromLane="0" toLane="0"/>
+</connections>

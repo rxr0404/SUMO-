@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 方案0（调整前/基线）：匝道信号灯常绿 = 不进行匝道控制。
+     匝道车辆自由汇入，放行能力无限制。 -->
+<additional>
+    <tlLogic id="RM" type="static" programID="plan0_free" offset="0">
+        <phase duration="2000" state="G"/>
+    </tlLogic>
+</additional>

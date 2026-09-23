@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 节点定义：
+     W -> M -> E 为主线，M 是匝道汇入点；S 为匝道起点；RM 为匝道信号灯节点。
+     建模要点：匝道汇入专用车道模式 —— 主线在汇入点下游拓为 3 车道，
+     匝道接入最外侧车道（lane 0），主线两车道向内平移（l0->l1, l1->l2）。
+     这样汇入点处无任何冲突流，真正的"合流"由下游换道模型完成 —— 
+     这就是 SUMO 中标准的高速公路匝道建模方式（对应论文 B Fig.3 的网络画法）。 -->
+<nodes>
+    <node id="W"  x="-1000" y="0"    type="priority"/>
+    <node id="M"  x="0"     y="0"    type="priority"/>
+    <node id="E"  x="1500"  y="0"    type="priority"/>
+    <node id="S"  x="-650"  y="-400" type="priority"/>
+    <node id="RM" x="-350"  y="-120" type="traffic_light"/>
+</nodes>

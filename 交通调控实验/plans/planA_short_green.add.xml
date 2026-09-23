@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 方案A（调整后-短绿灯）：压缩匝道绿灯时间。
+     相位：绿 2s + 黄 1s + 红 7s = 周期 10s。
+     一个周期内约放行 1 辆车（起步损失约 2s，2.5s 绿放不完 2 辆），
+     放行能力 ≈ 3600/10 ≈ 360 veh/h < 匝道需求 500 veh/h
+     → 预期匝道排队持续增长、车辆延误大幅上升。 -->
+<additional>
+    <tlLogic id="RM" type="static" programID="planA_short" offset="0">
+        <phase duration="2" state="G"/>
+        <phase duration="1" state="y"/>
+        <phase duration="7" state="r"/>
+    </tlLogic>
+</additional>

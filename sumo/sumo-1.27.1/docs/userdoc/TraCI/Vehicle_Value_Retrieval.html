@@ -1,0 +1,1496 @@
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 24 June 2026 23:56:28
+Last edit: 04 May 2026
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="theme-color" content="#338033">
+        <meta name="theme-color" content="#338033" media="(prefers-color-scheme: dark)">
+        <meta property="og:image" content="../images/image-facebook.jpg">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1080">
+        <meta property="og:image:height" content="1080">
+
+        
+        
+        <link rel="canonical" href="https://sumo.dlr.de/docs/TraCI/Vehicle_Value_Retrieval.html">
+        <link rel="shortcut icon" href="../images/favicon.ico">
+        <title>Vehicle Value Retrieval - SUMO Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.all.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-3.7.0.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+
+      <script>
+        // DARK MODE
+        function detectColorScheme(){
+          var theme="light";
+
+          if(localStorage.getItem("sumo-docs-theme")){
+              if(localStorage.getItem("sumo-docs-theme") == "dark"){
+                  var theme = "dark";
+              }
+          } else if(!window.matchMedia) {
+              return false;
+          } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+              var theme = "dark";
+          }
+
+          if (theme=="dark") {
+              document.documentElement.setAttribute("data-theme", "dark");
+          }
+        }
+        detectColorScheme();
+      </script>
+
+    </head>
+
+    <body>
+
+    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary text-center">
+    <div class="container-fluid">
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li class="navitem">
+                        <a href="../index.html" class="nav-link">Documentation</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../Tutorials/index.html" class="nav-link">Tutorials</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../FAQ.html" class="nav-link">FAQ</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../Downloads.html" class="nav-link">Downloads</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../Publications.html" class="nav-link">Publications</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../Developer/index.html" class="nav-link">Developer</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../ChangeLog.html" class="nav-link">ChangeLog</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="https://eclipse.dev/sumo/contact/" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa-solid fa-magnifying-glass"></i> <u>S</u>earch
+                    </a>
+                </li>
+                    <li class="nav-item">
+                        <a rel="edit" href="https://github.com/eclipse-sumo/sumo/edit/main/docs/web/docs/TraCI/Vehicle_Value_Retrieval.md" class="nav-link"><i class="fa-brands fa-github"></i> <u>E</u>dit on GitHub</a>
+                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    More <i class="fa-solid fa-circle-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item no-arrow-link" href="https://github.com/eclipse/sumo/issues">Report a Bug / Issue / Typo</a>
+                    <a class="dropdown-item" href="../Editing_Articles.html">Help on editing articles</a>
+                    <a class="dropdown-item" href="https://github.com/eclipse/sumo/commits/main/docs/web">Recent documentation changes</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mkdocs_keyboard_modal">Keyboard Shortcuts</a>
+                    <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
+                    <span class="dropdown-item" id="dark-mode-div">Dark mode <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+                        <input type="checkbox" id="checkbox_theme">
+                    </label></span>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languagedrop" data-toggle="dropdown">
+                    <i class="fa-solid fa-language"></i> Languages <i class="fa-solid fa-circle-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    <span class="dropdown-item">
+                        Translations are generated automatically by Google Translate:
+                    </span>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=de">Deutsch</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=es">Español</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=pt">Português</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=fr">Français</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=it">Italiano</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=zh-CN">简体中文</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=zh-TW">繁體中文</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=tr">Türkçe</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=ja">日本語</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=en&_x_tr_tl=ko">한국어</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/TraCI/Vehicle_Value_Retrieval.html?_x_tr_sl=auto&_x_tr_tl=en"><i class="fa-solid fa-arrow-right"></i> Other languages</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container-fluid">
+          <div class="row">
+                <div class="col-md-3">
+                  <div class="text-center"><a href="../index.html" style="display: inline-block; margin-top: 5px;"><img src="../images/sumo-logo.png" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
+                  
+<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed mb-1" data-toggle="collapse" data-target="#toc-collapse" title="Contents">
+            <span class="fa-solid fa-angle-down"></span>
+        </button>
+    </div>
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary toc-scroll toc">
+        <ul class="nav flex-column bs-sidenav">
+            <p style="margin-top:5px; color:#777777;" class="text-center">Contents</p>
+            <li class="nav-item main"><a href="#command_0xa4_get_vehicle_variable">Command 0xa4: Get Vehicle Variable</a></li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#overview_retrievable_vehicle_variables" class="nav-link">• Overview Retrievable Vehicle Variables</a>
+                </li>
+            <li class="nav-item main"><a href="#response_0xb4_vehicle_variable">Response 0xb4: Vehicle Variable</a></li>
+            <li class="nav-item main"><a href="#extended_retrieval_messages">Extended retrieval messages</a></li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#edge_travel_time_information_0x58" class="nav-link">• edge travel time information (0x58)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#edge_effort_information_0x59" class="nav-link">• edge effort information (0x59)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#leader_0x68" class="nav-link">• leader (0x68)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#next_tls_0x70" class="nav-link">• next TLS (0x70)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#change_lane_information_0x13" class="nav-link">• change lane information (0x13)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#neighboring_vehicles_0xbf" class="nav-link">• neighboring vehicles (0xbf)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#followspeed_0x1c" class="nav-link">• followSpeed (0x1c)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#securegap_0x1e" class="nav-link">• secureGap (0x1e)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#stopspeed_0x1d" class="nav-link">• stopSpeed (0x1d)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#junction_foes_0x37" class="nav-link">• junction foes (0x37)</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#stopparameter_0x55" class="nav-link">• stopParameter (0x55)</a>
+                </li>
+            <li class="nav-item main"><a href="#device_and_lanechangemodel_parameter_retrieval_0x7e">Device and LaneChangeModel Parameter Retrieval 0x7e</a></li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#supported_device_parameters" class="nav-link">• Supported Device Parameters</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#supported_lanechangemodel_parameters" class="nav-link">• Supported LaneChangeModel Parameters</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#supported_carfollowmodel_parameters" class="nav-link">• Supported carFollowModel Parameters</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#supported_junctionmodel_parameters" class="nav-link">• Supported junctionModel Parameters</a>
+                </li>
+                <li class="nav-item" style="text-indent: 5px;">
+                    <a href="#supported_further_parameters" class="nav-link">• Supported further Parameters</a>
+                </li>
+        </ul>
+    </div>
+
+    <div class="admonition conference" style="position: sticky; margin-top: 20px; margin-bottom:10px;">
+        <p>visit <a class="no-arrow-link" href="https://eclipse.dev/sumo">eclipse.dev/sumo</a></p>
+    </div>
+
+</div>
+                </div>
+                <div class="col-md-9 main-area" role="main">
+                   <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
+                  <ul class="breadcrumbs">
+    <script>
+        var pagePath = "/docs/TraCI/Vehicle_Value_Retrieval.html";
+        var splitUrl = pagePath.split("/");
+        splitUrl.pop();
+        splitUrl.shift();
+        if (splitUrl[0] == 'docs') splitUrl.shift();
+        var homeLink = "../index.html";
+        document.write('<li class="breadcrumb-item"><a href="' + homeLink + '"><i class="fa-solid fa-house"></i></a></li>');
+        var prev = '';
+
+        var dirLink = splitUrl.map(function (el) {
+        el = prev + el; prev = el + '/'; return el;
+        });
+
+        for (let i = 0; i < splitUrl.length; i++) {
+            document.write("<li class=\"breadcrumb-item\"><a class=\"no-arrow-link\" href=\"../" + dirLink[i] + "\">" + splitUrl[i] + "</a></li>");
+        }
+    </script>
+    <li class="breadcrumb-item active">Vehicle Value Retrieval</li>
+</ul>
+                  <h1 class="h-title">Vehicle Value Retrieval</h1>
+                  
+                  
+
+<h2 id="command_0xa4_get_vehicle_variable">Command 0xa4: Get Vehicle Variable<a class="headerlink" href="#command_0xa4_get_vehicle_variable" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">ubyte</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Variable</td>
+<td style="text-align: center;">Vehicle ID</td>
+</tr>
+</tbody>
+</table>
+<p>Asks for the value of a certain variable of the named vehicle. The value
+returned is the state of the asked variable/value within the last
+simulation step. In the case the vehicle is loaded, but outside the
+network - due not being yet inserted into the network or being
+teleported within the current time step - a default "error" value is
+returned.</p>
+<p>The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+next stops (0x73).</p>
+<h3 id="overview_retrievable_vehicle_variables">Overview Retrievable Vehicle Variables<a class="headerlink" href="#overview_retrievable_vehicle_variables" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>ValueType</th>
+<th>Description</th>
+<th><a href="Interfacing_TraCI_from_Python.html">Python Method</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id list (0x00)</td>
+<td>stringList</td>
+<td>Returns a list of ids of all vehicles currently running within the scenario (the given vehicle ID is ignored)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getIDList">getIDList</a></td>
+</tr>
+<tr>
+<td>count (0x01)</td>
+<td>int</td>
+<td>Returns the number of vehicles currently running within the scenario (the given vehicle ID is ignored)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getIDCount">getIDCount</a></td>
+</tr>
+<tr>
+<td>speed (0x40)</td>
+<td>double</td>
+<td>Returns the speed of the named vehicle within the last step [m/s]; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSpeed">getSpeed</a></td>
+</tr>
+<tr>
+<td>lateral speed (0x32)</td>
+<td>double</td>
+<td>Returns the lateral speed of the named vehicle within the last step [m/s]; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLateralSpeed">getLateralSpeed</a></td>
+</tr>
+<tr>
+<td>acceleration (0x72)</td>
+<td>double</td>
+<td>Returns the acceleration in the previous time step [m/s^2]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAcceleration">getAcceleration</a></td>
+</tr>
+<tr>
+<td>position (0x42)</td>
+<td>position</td>
+<td>Returns the position(two doubles) of the named vehicle (center of the front bumper) within the last step [m,m]; error value: [-2^30, -2^30].</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPosition">getPosition</a></td>
+</tr>
+<tr>
+<td>position 3D (0x39)</td>
+<td>position</td>
+<td>Returns the 3D-position(three doubles) of the named vehicle (center of the front bumper) within the last step [m,m,m]; error value: [-2^30, -2^30, -2^30].</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPosition3D">getPosition3D</a></td>
+</tr>
+<tr>
+<td>angle (0x43)</td>
+<td>double</td>
+<td>Returns the angle of the named vehicle within the last step [°]; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAngle">getAngle</a></td>
+</tr>
+<tr>
+<td>road id (0x50)</td>
+<td>string</td>
+<td>Returns the id of the edge the named vehicle was at within the last step; error value: ""</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRoadID">getRoadID</a></td>
+</tr>
+<tr>
+<td>lane id (0x51)</td>
+<td>string</td>
+<td>Returns the id of the lane the named vehicle was at within the last step; error value: ""</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneID">getLaneID</a></td>
+</tr>
+<tr>
+<td>lane index (0x52)</td>
+<td>int</td>
+<td>Returns the index of the lane the named vehicle was at within the last step; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneIndex">getLaneIndex</a></td>
+</tr>
+<tr>
+<td>type id (0x4f)</td>
+<td>string</td>
+<td>Returns the id of the type of the named vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTypeID">getTypeID</a></td>
+</tr>
+<tr>
+<td>route id (0x53)</td>
+<td>string</td>
+<td>Returns the id of the route of the named vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRouteID">getRouteID</a></td>
+</tr>
+<tr>
+<td>route index (0x69)</td>
+<td>int</td>
+<td>Returns the index of the current edge within the vehicles route or -1 if the vehicle has not yet departed</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRouteIndex">getRouteIndex</a></td>
+</tr>
+<tr>
+<td>edges (0x54)</td>
+<td>stringList</td>
+<td>Returns the ids of the edges the vehicle's route is made of</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRoute">getRoute</a></td>
+</tr>
+<tr>
+<td>color (0x45)</td>
+<td>ubyte,ubyte,ubyte,ubyte</td>
+<td>Returns the vehicle's color (RGBA). This does not return the currently visible color in the GUI but the color value set in the XML file or via TraCI.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getColor">getColor</a></td>
+</tr>
+<tr>
+<td>lane position (0x56)</td>
+<td>double</td>
+<td>The position of the vehicle along the lane (the distance from the front bumper to the start of the lane in [m]); error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLanePosition">getLanePosition</a></td>
+</tr>
+<tr>
+<td>distance (0x84)</td>
+<td>double</td>
+<td>The distance, the vehicle has already driven ([m]); error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDistance">getDistance</a></td>
+</tr>
+<tr>
+<td>signal states (0x5b)</td>
+<td>int</td>
+<td>An integer encoding the state of a vehicle's signals, see <a href="Vehicle_Signalling.html">TraCI/Vehicle Signalling</a> for more information.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSignals">getSignals</a></td>
+</tr>
+<tr>
+<td>routing mode (0x89)</td>
+<td>int</td>
+<td>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing">current routing mode</a> (0: default, 1: aggregated)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRoutingMode">getRoutingMode</a></td>
+</tr>
+<tr>
+<td>TaxiFleet (0x20)</td>
+<td>stringList</td>
+<td>Return the list of all taxis with the given mode:(-1: all, 0 : empty, 1 : pickup,2 : occupied, 3: pickup+occupied). Note: vehicles that are in state pickup+occupied (due to ride sharing) will also be returned when requesting mode 1 or 2</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTaxiFleet">getTaxiFleet</a></td>
+</tr>
+<tr>
+<td>CO2 emissions<br />(id 0x60)</td>
+<td>double</td>
+<td>Vehicle's CO2 emissions in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getCO2Emission">getCO2Emission</a></td>
+</tr>
+<tr>
+<td>CO emissions<br />(id 0x61)</td>
+<td>double</td>
+<td>Vehicle's CO emissions in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getCOEmission">getCOEmission</a></td>
+</tr>
+<tr>
+<td>HC emissions<br />(id 0x62)</td>
+<td>double</td>
+<td>Vehicle's HC emissions in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getHCEmission">getHCEmission</a></td>
+</tr>
+<tr>
+<td>PMx emissions<br />(id 0x63)</td>
+<td>double</td>
+<td>Vehicle's PMx emissions in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPMxEmission">getPMxEmission</a></td>
+</tr>
+<tr>
+<td>NOx emissions<br />(id 0x64)</td>
+<td>double</td>
+<td>Vehicle's NOx emissions in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNOxEmission">getNOxEmission</a></td>
+</tr>
+<tr>
+<td>fuel consumption<br />(id 0x65)</td>
+<td>double</td>
+<td>Vehicle's fuel consumption in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getFuelConsumption">getFuelConsumption</a></td>
+</tr>
+<tr>
+<td>noise emission<br />(id 0x66)</td>
+<td>double</td>
+<td>Noise generated by the vehicle in dBA; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNoiseEmission">getNoiseEmission</a></td>
+</tr>
+<tr>
+<td>electricity consumption (id 0x71)</td>
+<td>double</td>
+<td>Vehicle's electricity consumption in Wh/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getElectricityConsumption">getElectricityConsumption</a></td>
+</tr>
+<tr>
+<td>best lanes (id 0xb2)</td>
+<td>complex</td>
+<td>For each lane on the current edge, the sequences of lanes that would be followed from that lane without lane-change as well as information regarding lane-change desirability are returned (see below).</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getBestLanes">getBestLanes</a></td>
+</tr>
+<tr>
+<td>stop state (id 0xb5)</td>
+<td>int</td>
+<td>value = 1 * stopped + 2 * parking + 4 * triggered + 8 * containerTriggered + 16 * atBusStop + 32 * atContainerStop + 64 * atChargingStation + 128 * atParkingArea</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getStopState">getStopState</a><br /><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isAtBusStop">isAtBusStop</a><br /><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isAtContainerStop">isAtContainerStop</a><br /><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isStopped">isStopped</a><br /><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isStoppedParking">isStoppedParking</a><br /><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isStoppedTriggered">isStoppedTriggered</a></td>
+</tr>
+<tr>
+<td>length (0x44)</td>
+<td>double</td>
+<td>Returns the length of the vehicles [m]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLength">getLength</a></td>
+</tr>
+<tr>
+<td>vmax (0x41)</td>
+<td>double</td>
+<td>Returns the maximum speed of the vehicle [m/s]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getMaxSpeed">getMaxSpeed</a></td>
+</tr>
+<tr>
+<td>accel (0x46)</td>
+<td>double</td>
+<td>Returns the maximum acceleration possibility of this vehicle [m/s^2]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAccel">getAccel</a></td>
+</tr>
+<tr>
+<td>decel (0x47)</td>
+<td>double</td>
+<td>Returns the maximum deceleration possibility of this vehicle [m/s^2]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDecel">getDecel</a></td>
+</tr>
+<tr>
+<td>tau (0x48)</td>
+<td>double</td>
+<td>Returns the driver's desired time headway for this vehicle [s]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTau">getTau</a></td>
+</tr>
+<tr>
+<td>sigma (0x5d)</td>
+<td>double</td>
+<td>Returns the driver's imperfection (dawdling) [0,1]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getImperfection">getImperfection</a></td>
+</tr>
+<tr>
+<td>speedFactor (0x5e)</td>
+<td>double</td>
+<td>Returns the road speed multiplier for this vehicle [double]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSpeedFactor">getSpeedFactor</a></td>
+</tr>
+<tr>
+<td>speedDev (0x5f)</td>
+<td>double</td>
+<td>Returns the deviation of speedFactor for this vehicle [double]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSpeedDeviation">getSpeedDeviation</a></td>
+</tr>
+<tr>
+<td>vClass (0x49)</td>
+<td>string</td>
+<td>Returns the permission class of this vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getVehicleClass">getVehicleClass</a></td>
+</tr>
+<tr>
+<td>emission_class (0x4a)</td>
+<td>string</td>
+<td>Returns the emission class of this vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getEmissionClass">getEmissionClass</a></td>
+</tr>
+<tr>
+<td>shape (0x4b)</td>
+<td>string</td>
+<td>Returns the shape class of this vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getShapeClass">getShapeClass</a></td>
+</tr>
+<tr>
+<td>minGap (0x4c)</td>
+<td>double</td>
+<td>Returns the offset (gap to front vehicle if halting) of this vehicle [m]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getMinGap">getMinGap</a></td>
+</tr>
+<tr>
+<td>width (0x4d)</td>
+<td>double</td>
+<td>Returns the width of this vehicle [m]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getWidth">getWidth</a></td>
+</tr>
+<tr>
+<td>height (0xbc)</td>
+<td>double</td>
+<td>Returns the height of this vehicle [m]</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getHeight">getHeight</a></td>
+</tr>
+<tr>
+<td>person capacity (0x38)</td>
+<td>int</td>
+<td>Returns the total number of persons that can ride in this vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPersonCapacity">getPersonCapacity</a></td>
+</tr>
+<tr>
+<td>waiting time (0x7a)</td>
+<td>double</td>
+<td>Returns the consecutive time in where this vehicle was standing [s] (voluntary stopping is excluded)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getWaitingTime">getWaitingTime</a></td>
+</tr>
+<tr>
+<td>accumulated waiting time (0x87)</td>
+<td>double</td>
+<td>Returns the accumulated waiting time [s] within the previous time interval of default length 100 s. (length is configurable per option <b>--waiting-time-memory</b> given to the main application)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAccumulatedWaitingTime">getAccumulatedWaitingTime</a></td>
+</tr>
+<tr>
+<td>next TLS (0x70)</td>
+<td>complex</td>
+<td>Returns upcoming traffic lights, along with distance and state</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNextTLS">getNextTLS</a></td>
+</tr>
+<tr>
+<td>next stops (0x73)</td>
+<td>complex</td>
+<td>Returns the list of upcoming stops, each as compound (laneID, endPos, ID, flags, duration, until). If flag 1 is set (stop reached), duration encodes the remaining duration. Negative values indicate being blocked from re-entering traffic after a parking stop. This function is deprecated, use stops (0x74) instead.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNextStops">getNextStops</a></td>
+</tr>
+<tr>
+<td>person id list (0x1a)</td>
+<td>stringList</td>
+<td>Returns the list of persons which includes those defined using attribute 'personNumber' as well as <person>-objects which are riding in this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPersonIDList">getPersonIDList</a></td>
+</tr>
+<tr>
+<td>speed mode (0xb3)</td>
+<td>int bitset (see below)</td>
+<td>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="Change_Vehicle_State.html#speed_mode_0xb3">set speedmode command</a> for details.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSpeedMode">getSpeedMode</a></td>
+</tr>
+<tr>
+<td>lane change mode (0xb6)</td>
+<td>int bitset (see <a href="Change_Vehicle_State.html#lane_change_mode_0xb6">below</a>)</td>
+<td>Get information on how lane changing in general and lane changing requests by TraCI are performed.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneChangeMode">getLaneChangeMode</a></td>
+</tr>
+<tr>
+<td>slope (0x36)</td>
+<td>double</td>
+<td>Retrieves the slope at the current vehicle position in degrees</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSlope">getSlope</a></td>
+</tr>
+<tr>
+<td>allowed speed (0xb7)</td>
+<td>double</td>
+<td>Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAllowedSpeed">getAllowedSpeed</a></td>
+</tr>
+<tr>
+<td>line (0xbd)</td>
+<td>string</td>
+<td>Returns the line information of this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLine">getLine</a></td>
+</tr>
+<tr>
+<td>Person Number(0x67)</td>
+<td>int</td>
+<td>Returns the total number of persons which includes those defined using attribute 'personNumber' as well as &lt;person&gt;-objects which are riding in this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getPersonNumber">getPersonNumber</a></td>
+</tr>
+<tr>
+<td>via edges(0xbe)</td>
+<td>stringList</td>
+<td>Returns the ids of via edges for this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getVia">getVia</a></td>
+</tr>
+<tr>
+<td>speed without TraCI (0xb1)</td>
+<td>double</td>
+<td>Returns the speed that the vehicle would drive if not speed-influencing command such as setSpeed or slowDown was given.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSpeedWithoutTraCI">getSpeedWithoutTraCI</a></td>
+</tr>
+<tr>
+<td>valid route (0x92)</td>
+<td>bool</td>
+<td>Returns whether the current vehicle route is connected for the vehicle class of the given vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.isRouteValid">isRouteValid</a></td>
+</tr>
+<tr>
+<td>lateral lane position (0xb8)</td>
+<td>double</td>
+<td>Returns the lateral position of the vehicle on its current lane measured in m.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLateralLanePosition">getLateralLanePosition</a></td>
+</tr>
+<tr>
+<td>max lateral speed (0xba)</td>
+<td>double</td>
+<td>Returns the maximum lateral speed in m/s of this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getMaxSpeedLat">getMaxSpeedLat</a></td>
+</tr>
+<tr>
+<td>boarding duration (0x2f)</td>
+<td>double</td>
+<td>Returns the boarding duration of the vehicle in s</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getBoardingDuration">getBoarding</a></td>
+</tr>
+<tr>
+<td>current impatience (0x26)</td>
+<td>double</td>
+<td>Returns the current <a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#impatience">dynamic impatience</a> of this vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getImpatience">getImpatience</a></td>
+</tr>
+<tr>
+<td>lateral gap (0xbb)</td>
+<td>double</td>
+<td>Returns the desired lateral gap of this vehicle at 50km/h in m.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getMinGapLat">getMinGapLat</a></td>
+</tr>
+<tr>
+<td>lateral alignment (0xb9)</td>
+<td>string</td>
+<td>Returns the preferred lateral alignment of the vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLateralAlignment">getLateralAlignment</a></td>
+</tr>
+<tr>
+<td>parameter (0x7e)</td>
+<td>string</td>
+<td><a href="#device_and_lanechangemodel_parameter_retrieval_0x7e">Returns the value for the given string parameter</a></td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getParameter">getParameter</a></td>
+</tr>
+<tr>
+<td>action step length (0x7d)</td>
+<td>double</td>
+<td>Returns the current action step length for the vehicle in s.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getActionStepLength">getActionStepLength</a></td>
+</tr>
+<tr>
+<td>last action time (0x7f)</td>
+<td>double</td>
+<td>Returns the time of the last action step in s.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLastActionTime">getLastActionTime</a></td>
+</tr>
+<tr>
+<td>stops (0x74)</td>
+<td>complex</td>
+<td>Returns the list of the next or last n stops as StopData objects.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getStops">getStops</a></td>
+</tr>
+<tr>
+<td>timeLoss (0x8c)</td>
+<td>double</td>
+<td>Returns the accumulated timeLoss of the vehicle in s</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTimeLoss">getTimeLoss</a></td>
+</tr>
+<tr>
+<td>loaded list (0x24)</td>
+<td>stringList</td>
+<td>Returns a list of all loaded vehicle ids that have not yet arrived. This includes vehicles that are meant to depart in the future.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLoadedIDList">getLoadedIDList</a></td>
+</tr>
+<tr>
+<td>teleporting list (0x25)</td>
+<td>stringList</td>
+<td>Returns a list of all vehicles that are currently <a href="../Simulation/Why_Vehicles_are_teleporting.html">teleporting/jumping</a></td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTeleportingIDList">getTeleportingIDList</a></td>
+</tr>
+<tr>
+<td>next links (0x33)</td>
+<td>complex</td>
+<td>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNextLinks">getNextLinks</a></td>
+</tr>
+<tr>
+<td>actual departure time (0x3a)</td>
+<td>double</td>
+<td>Returns the actual departure time (after possibly queueing for insertion)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDeparture">getDeparture</a></td>
+</tr>
+<tr>
+<td>departure delay (0x3b)</td>
+<td>double</td>
+<td>Returns the time difference between the planned and the actual departure</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDepartDelay">getDepartDelay</a></td>
+</tr>
+<tr>
+<td>segment id (0xa1)</td>
+<td>string</td>
+<td>Returns the id of the segment on which the vehicle is driving (mesosim)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSegmentID">getSegmentID</a></td>
+</tr>
+<tr>
+<td>segment index (0xa2)</td>
+<td>int</td>
+<td>Returns the index of the segment on which the vehicle is driving (mesosim)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSegmentIndex">getDepartSegmentIndex</a></td>
+</tr>
+<tr>
+<td>mass (0xc8)</td>
+<td>double</td>
+<td>Returns the mass of the vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getMass">getMass</a></td>
+</tr>
+<tr>
+<td>reference distance (0x95)</td>
+<td>double</td>
+<td>Returns the position of the vehicle within the <a href="../Simulation/Distances.html#defining_and_using_linear_coordinates">linear reference system of the edge</a></td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getReferenceDistance">getDepartSegmentIndex</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="response_0xb4_vehicle_variable">Response 0xb4: Vehicle Variable<a class="headerlink" href="#response_0xb4_vehicle_variable" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">ubyte</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">ubyte</th>
+<th style="text-align: center;">&lt;return_type&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Variable</td>
+<td style="text-align: center;">Vehicle ID</td>
+<td style="text-align: center;">Return type of the variable</td>
+<td style="text-align: center;">&lt;VARIABLE_VALUE&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>The respond to a <strong>"Command Get Vehicle Variable"</strong>.</p>
+<p><strong>next stops (0x73)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">number of following stop information</td>
+<td style="text-align: center;">stop information</td>
+</tr>
+</tbody>
+</table>
+<p>Each stop information is:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">integer</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">lane-id</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">endPos</td>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">stoppingPlaceID</td>
+<td style="text-align: center;">value type <em>integer</em></td>
+<td style="text-align: center;">stopFlags (bit set, see <a href="Change_Vehicle_State.html#stop_0x12">setStop()</a>)</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">duration in seconds</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">until in seconds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>best lanes (0xb2)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">number of following edge information</td>
+<td style="text-align: center;">edge information</td>
+</tr>
+</tbody>
+</table>
+<p>Each edge information is:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">byte (signed)</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">byte (unsigned)</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">stringList</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">lane-id</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">length</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">occupation</td>
+<td style="text-align: center;">value type <em>byte</em></td>
+<td style="text-align: center;">offset to best lane</td>
+<td style="text-align: center;">value type <em>ubyte</em></td>
+<td style="text-align: center;">0: lane may not be used for continuing drive, 1: it may be used</td>
+<td style="text-align: center;">value type <em>stringlist</em></td>
+<td style="text-align: center;">list of best subsequent lanes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extended_retrieval_messages">Extended retrieval messages<a class="headerlink" href="#extended_retrieval_messages" title="Permanent link">#</a></h2>
+<p>Some further messages require additional parameters.</p>
+<p><center>
+<strong>Overview Extended Variables Retrieval</strong>
+</center></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Request ValueType</th>
+<th>Response ValueType</th>
+<th>Description</th>
+<th><a href="Interfacing_TraCI_from_Python.html">Python Method</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>edge travel time information (0x58)</td>
+<td>compound (time, edgeID), see below</td>
+<td>double</td>
+<td>Returns the edge travel time for the given time as stored in the vehicle's internal container. If such a value does not exist, -1 is returned.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAdaptedTraveltime">getAdaptedTraveltime</a></td>
+</tr>
+<tr>
+<td>edge effort information (0x59)</td>
+<td>compound (time, edgeID), see below</td>
+<td>double</td>
+<td>Returns the edge effort for the given time as stored in the vehicle's internal container. If such a value does not exist, -1 is returned.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getEffort">getEffort</a></td>
+</tr>
+<tr>
+<td>leader (0x68)</td>
+<td>double, see below</td>
+<td>compound (string, double)</td>
+<td>Returns the id of the leading vehicle and its distance, if the string is empty, no leader was found within the given range. Only vehicles ahead on the currently list of <em>best lanes</em> are considered (see above). This means, the leader is only valid until the next lane-change maneuver. The returned distance is measured from the ego vehicle front bumper + minGap to the back bumper of the leader vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLeader">getLeader</a></td>
+</tr>
+<tr>
+<td>distance request (0x83)</td>
+<td>compound (see <a href="https://sumo.dlr.de/docs/TraCI/Simulation_Value_Retrieval.html#command_0x83_distance_request">Command 0x83: Distance Request</a>)</td>
+<td>double, see below</td>
+<td>Returns the distance between the current vehicle position and the specified position (for the given distance type)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDrivingDistance">getDrivingDistance</a> <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getDrivingDistance2D">getDrivingDistance2D</a></td>
+</tr>
+<tr>
+<td>change lane information (0x13)</td>
+<td>compound , <a href="#change_lane_information_0x13">see below</a></td>
+<td>int, int <a href="#change_lane_information_0x13">see below</a></td>
+<td>Return whether the vehicle could change lanes in the specified direction in the previous step (right: -1, left: 1. sublane-change within current lane: 0).<br />Return the lane change state for the vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneChangeState">getLaneChangeState</a> <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.couldChangeLane">couldChangeLane</a> <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.wantsAndCouldChangeLane">wantsAndCouldChangeLane</a></td>
+</tr>
+<tr>
+<td>neighboring vehicles (0xbf)</td>
+<td>byte , <a href="#neighboring_vehicles_0xbf">see below</a></td>
+<td>stringList <a href="#neighboring_vehicles_0xbf">see below</a></td>
+<td>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html">sublane model</a>)</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRightLeaders">getRightLeaders</a></td>
+</tr>
+<tr>
+<td>followSpeed (0x1c)</td>
+<td>compound, <a href="#followspeed_0x1c">see below</a></td>
+<td>double</td>
+<td>Return the follow speed computed by the carFollowModel of vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getFollowSpeed">getFollowSpeed</a></td>
+</tr>
+<tr>
+<td>secureGap (0x1e)</td>
+<td>compound, <a href="#securegap_0x1e">see below</a></td>
+<td>double</td>
+<td>Return the secure gap computed by the carFollowModel of vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getSecureGap">getSecureGap</a></td>
+</tr>
+<tr>
+<td>stopSpeed (0x1d)</td>
+<td>compound, <a href="#stopspeed_0x1d">see below</a></td>
+<td>double</td>
+<td>Return the safe speed for stopping at gap computed by the carFollowModel of vehicle</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getStopSpeed">getStopSpeed</a></td>
+</tr>
+<tr>
+<td>junction foes (0x37)</td>
+<td>complex</td>
+<td>Returns the list of foes within a certain distance of the ego vehicle.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getJunctionFoes">getJunctionFoes</a></td>
+<td></td>
+</tr>
+<tr>
+<td>stop parameters (0x55)</td>
+<td>string</td>
+<td>Returns the attribute by the given name for the stop of the given index (0 is the next stop, -1 is the previous stop etc) for the specified vehicle. If customParam is set to True (1), the user defined custom parameter will returned instead.</td>
+<td><a href="https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getStopParameter">getStopParameter</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The request message contents are as following:</p>
+<h3 id="edge_travel_time_information_0x58">edge travel time information (0x58)<a class="headerlink" href="#edge_travel_time_information_0x58" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">number of elements (always=2)</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">requested time (in s)</td>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">edge id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edge_effort_information_0x59">edge effort information (0x59)<a class="headerlink" href="#edge_effort_information_0x59" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">number of elements (always=2)</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">requested time (in s)</td>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">edge id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="leader_0x68">leader (0x68)<a class="headerlink" href="#leader_0x68" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">minimum look ahead distance (in m)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="next_tls_0x70">next TLS (0x70)<a class="headerlink" href="#next_tls_0x70" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">byte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">number of elements</td>
+<td style="text-align: center;">value type <em>integer</em></td>
+<td style="text-align: center;">number of traffic light links ahead</td>
+<td style="text-align: center;">value type <em>string</em></td>
+<td style="text-align: center;">TLS id</td>
+<td style="text-align: center;">value type <em>int</em></td>
+<td style="text-align: center;">TLS link index</td>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">distance to TLS</td>
+<td style="text-align: center;">value type <em>byte</em></td>
+<td style="text-align: center;"><a href="../Simulation/Traffic_Lights.html#signal_state_definitions">link state</a></td>
+</tr>
+</tbody>
+</table>
+<p>The last 4 items occur multiple times according to the number of traffic
+lights ahead (2nd return value)</p>
+<h3 id="change_lane_information_0x13">change lane information (0x13)<a class="headerlink" href="#change_lane_information_0x13" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">change direction (-1:right, 0:sublane-change within current lane or 1:left)</td>
+</tr>
+</tbody>
+</table>
+<p>The result consists of two integer values. The first value returns the
+state as computed by the lane change model and the second value returns
+the state after requests where incorporated (see
+<a href="Change_Vehicle_State.html#change_lane_0x13">changeLane</a>,
+<a href="Change_Vehicle_State.html#lane_change_mode_0xb6">setLaneChangeMode</a>).
+Each value is a bitset with the following meaning:</p>
+<ul>
+<li>2^0: stay</li>
+<li>2^1: left</li>
+<li>2^2: right</li>
+<li>2^3: strategic</li>
+<li>2^4: cooperative</li>
+<li>2^5: speedGain</li>
+<li>2^6: keepRight</li>
+<li>2^7: TraCI</li>
+<li>2^8: urgent</li>
+<li>2^9: blocked by left leader</li>
+<li>2^10: blocked by left follower</li>
+<li>2^11: blocked by right leader</li>
+<li>2^12: blocked by right follower</li>
+<li>2^13: overlapping</li>
+<li>2^14: insufficient space</li>
+<li>2^15: sublane</li>
+<li>2^28: insufficient speed</li>
+<li>2^30: undetermined</li>
+</ul>
+<h3 id="neighboring_vehicles_0xbf">neighboring vehicles (0xbf)<a class="headerlink" href="#neighboring_vehicles_0xbf" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">ubyte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>ubyte</em></td>
+<td style="text-align: center;">mode (bitset)</td>
+</tr>
+</tbody>
+</table>
+<p>The mode's bits specify which neighboring vehicles should be returned:</p>
+<ul>
+<li>2^0: right neighbors (else: left)</li>
+<li>2^1: neighbors ahead (else: behind)</li>
+<li>2^2: only neighbors blocking a potential lane change (else: all)</li>
+</ul>
+<p>The returned string list contains the IDs of all corresponding
+neighboring vehicles.</p>
+<h3 id="followspeed_0x1c">followSpeed (0x1c)<a class="headerlink" href="#followspeed_0x1c" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">speed</td>
+<td style="text-align: center;">gap</td>
+<td style="text-align: center;">leaderSpeed</td>
+<td style="text-align: center;">leaderMaxDecel</td>
+<td style="text-align: center;">leaderID</td>
+</tr>
+</tbody>
+</table>
+<p>The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe follow speed in m/s</p>
+<h3 id="securegap_0x1e">secureGap (0x1e)<a class="headerlink" href="#securegap_0x1e" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">speed</td>
+<td style="text-align: center;">leaderSpeed</td>
+<td style="text-align: center;">leaderMaxDecel</td>
+<td style="text-align: center;">leaderID</td>
+</tr>
+</tbody>
+</table>
+<p>The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe gap for following the given leader in m.</p>
+<h3 id="stopspeed_0x1d">stopSpeed (0x1d)<a class="headerlink" href="#stopspeed_0x1d" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">double</th>
+<th style="text-align: center;">double</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">speed</td>
+<td style="text-align: center;">gap</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.</p>
+<h3 id="junction_foes_0x37">junction foes (0x37)<a class="headerlink" href="#junction_foes_0x37" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">double</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>double</em></td>
+<td style="text-align: center;">lookahead distance in m</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.</p>
+<h3 id="stopparameter_0x55">stopParameter (0x55)<a class="headerlink" href="#stopparameter_0x55" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">byte</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">int</th>
+<th style="text-align: center;">string</th>
+<th style="text-align: center;">byte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">value type <em>compound</em></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">stopIndex</td>
+<td style="text-align: center;">param</td>
+<td style="text-align: center;">customParam</td>
+</tr>
+</tbody>
+</table>
+<p>The stopIndex must be in range [-numberOfPassedStops, numberORemaingStops - 1].
+The customParam is interpreted as a boolean and determines whether an attribute values or a user defined parameter is returned.</p>
+<h2 id="device_and_lanechangemodel_parameter_retrieval_0x7e">Device and LaneChangeModel Parameter Retrieval 0x7e<a class="headerlink" href="#device_and_lanechangemodel_parameter_retrieval_0x7e" title="Permanent link">#</a></h2>
+<p>Vehicles supports retrieval of device parameters using the <a href="GenericParameters.html#get_parameter">generic
+parameter retrieval
+call</a>.</p>
+<h3 id="supported_device_parameters">Supported Device Parameters<a class="headerlink" href="#supported_device_parameters" title="Permanent link">#</a></h3>
+<ul>
+<li>device.battery.energyConsumed</li>
+<li>device.battery.energyCharged</li>
+<li>device.battery.chargeLevel</li>
+<li>device.battery.capacity</li>
+<li>device.battery.chargingStationId</li>
+<li>device.battery.totalEnergyConsumed</li>
+<li>device.battery.totalEnergyRegenerated</li>
+<li>device.battery.maximumChargeRate</li>
+<li>device.person.IDList</li>
+<li>device.container.IDList</li>
+<li>device.rerouting.period (returns individual rerouting period in
+  seconds)</li>
+<li>device.rerouting.edge:EDGE_ID (returns assumed travel time for
+  rerouting where EDGE_ID is the id of a network edge)</li>
+<li>device.driverstate.awareness</li>
+<li>device.driverstate.errorState</li>
+<li>device.driverstate.errorTimeScale</li>
+<li>device.driverstate.errorNoiseIntensity</li>
+<li>device.driverstate.minAwareness</li>
+<li>device.driverstate.initialAwareness</li>
+<li>device.driverstate.errorTimeScaleCoefficient</li>
+<li>device.driverstate.errorNoiseIntensityCoefficient</li>
+<li>device.driverstate.speedDifferenceErrorCoefficient</li>
+<li>device.driverstate.headwayErrorCoefficient</li>
+<li>device.driverstate.speedDifferenceChangePerceptionThreshold</li>
+<li>device.driverstate.headwayChangePerceptionThreshold</li>
+<li>device.driverstate.maximalReactionTime</li>
+<li>device.driverstate.originalReactionTime</li>
+<li>device.driverstate.actionStepLength</li>
+<li>device.stationfinder.chargingStation</li>
+<li>device.stationfinder.batteryNeed</li>
+<li>device.stationfinder.needToChargeLevel</li>
+<li>device.stationfinder.saturatedChargeLevel</li>
+<li>device.stationfinder.waitForCharge</li>
+<li>device.stationfinder.repeat</li>
+<li>device.stationfinder.radius</li>
+<li>device.stationfinder.reserveFactor</li>
+<li>device.taxi.state</li>
+<li>device.taxi.customers</li>
+<li>device.taxi.occupiedTime</li>
+<li>device.taxi.occupiedDistance</li>
+<li>device.taxi.currentCustomers</li>
+<li>device.tripinfo.waitingTime (total waiting time)</li>
+<li>device.tripinfo.waitingCount</li>
+<li>device.tripinfo.stopTime (total stopping time)</li>
+<li>device.tripinfo.arrivalTime (only retrievable after arrival with option <strong>--keep-after-arrival TIME</strong>)</li>
+<li>device.tripinfo.arrivalLane (only retrievable after arrival with option <strong>--keep-after-arrival TIME</strong>)</li>
+<li>device.tripinfo.arrivalPos (only retrievable after arrival with option <strong>--keep-after-arrival TIME</strong>)</li>
+<li>device.tripinfo.arrivalPosLat (only retrievable after arrival with option <strong>--keep-after-arrival TIME</strong>)</li>
+<li>device.tripinfo.arrivalSpeed (only retrievable after arrival with option <strong>--keep-after-arrival TIME</strong>)</li>
+<li>device.toc.state</li>
+<li>device.toc.holder</li>
+<li>device.toc.hasDynamicToC</li>
+<li>device.toc.manualType</li>
+<li>device.toc.automatedType</li>
+<li>device.toc.initialAwareness</li>
+<li>device.toc.lcAbstinence</li>
+<li>device.toc.currentAwareness</li>
+<li>device.toc.dynamicToCThreshold</li>
+<li>device.toc.dynamicMRMProbability</li>
+<li>device.toc.mrmKeepRight</li>
+<li>device.toc.mrmSafeSpot</li>
+<li>device.toc.mrmSafeSpotDuration</li>
+<li>device.toc.maxPreparationAccel</li>
+<li>device.toc.ogNewTimeHeadway</li>
+<li>device.toc.ogNewSpaceHeadway</li>
+<li>device.toc.ogChangeRate</li>
+<li>device.toc.ogMaxDecel</li>
+<li>device.example.customValue1 (return the value of option <strong>--device.example.parameter</strong>)</li>
+<li>device.example.customValue2 (return the value of vehicle parameter
+  <em>example</em>)</li>
+<li>device.example.meaningOfLife (return 42)</li>
+<li>has.DEVICENAME.device (returns "true" or "false" depending on
+  whether a device with DEVICENAME is equipped)</li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If the vehicles does not carry the respective device an error is returned when retrieving parameters with the <strong>device</strong>. prefix. This happens when requesting <em>device.person.IDList</em> for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).</p>
+</div>
+<h3 id="supported_lanechangemodel_parameters">Supported LaneChangeModel Parameters<a class="headerlink" href="#supported_lanechangemodel_parameters" title="Permanent link">#</a></h3>
+<ul>
+<li>laneChangeModel.&lt;ATTRNAME&gt; (where &lt;ATTRNAME&gt; is one of the
+  <a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#lane-changing_models">parameters supported by the
+  laneChangeModel</a>
+  of the vehicle. i.e. <em>lcStrategic</em>)</li>
+</ul>
+<h3 id="supported_carfollowmodel_parameters">Supported carFollowModel Parameters<a class="headerlink" href="#supported_carfollowmodel_parameters" title="Permanent link">#</a></h3>
+<p>Some carFollowModels permit access to further vehicle-specific parameters.</p>
+<ul>
+<li><a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#transient_carfollowmodel_parameters">carFollowModel.ignoreIDs</a></li>
+<li><a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#transient_carfollowmodel_parameters">carFollowModel.ignoreTypes</a></li>
+<li>carFollowModel.caccCommunicationsOverride (only CACC)</li>
+<li>carFollowModel.caccVehicleMode (only CACC)</li>
+</ul>
+<h3 id="supported_junctionmodel_parameters">Supported junctionModel Parameters<a class="headerlink" href="#supported_junctionmodel_parameters" title="Permanent link">#</a></h3>
+<ul>
+<li><a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#transient_parameters">junctionModel.ignoreIDs</a></li>
+<li><a href="../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#transient_parameters">junctionModel.ignoreTypes</a></li>
+</ul>
+<h3 id="supported_further_parameters">Supported further Parameters<a class="headerlink" href="#supported_further_parameters" title="Permanent link">#</a></h3>
+<ul>
+<li>parking.rerouteCount: number of times vehicle rerouted to another parkingArea during the current search</li>
+<li>parking.memory.IDList:  all parkingAreas considered so far</li>
+<li>parking.memory.score:  latest scores for the list of considered parkingAreas (smaller is better)</li>
+<li>parking.memory.blockedAtTime: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (possibly via remote information)</li>
+<li>parking.memory.blockedAtTimeLocal: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (upon physically visiting that area)</li>
+</ul>
+                </div>
+          </div>
+          <button onclick="goTopFunction()" id="goToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+        </div>
+
+        <footer class="col-md-12">
+          
+            <br><small><i>This page was last edited on: 04 May 2026</i></small>
+          
+          <hr>
+            <p>Copyright &copy; 2001-2026 German Aerospace Center (DLR) and others.</p>
+          <p>Follow us on <a class="no-arrow-link" href="https://www.twitter.com/eclipsesumo/"><i class="fa-brands fa-x-twitter"></i></a> <a class="no-arrow-link" href="https://www.facebook.com/simulationofurbanmobility/"><i class="fa-brands fa-facebook"></i></a> <a class="no-arrow-link" href="https://www.instagram.com/eclipse.sumo/"><i class="fa-brands fa-instagram"></i></a> <a class="no-arrow-link" href="https://www.threads.net/@eclipse.sumo"><i class="fa-brands fa-threads"></i></a> <a class="no-arrow-link" href="https://bsky.app/profile/eclipse-sumo.bsky.social"><i class="fa-brands fa-bluesky"></i></a> <a class="no-arrow-link" href="https://www.linkedin.com/groups/5156801/"><i class="fab fa-linkedin"></i></a>
+          | Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a></p>
+        </footer>
+
+      <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body" style="color: #495057 !important;">
+                <p>Enter your search terms:</p>
+                <script async src="https://cse.google.com/cse.js?cx=004302551366764109984:1kpgtzrm6kv"></script>
+                <div class="gcse-search"></div>
+            </div>
+        </div>
+    </div>
+</div>
+      <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("goToTop").style.display = "block";
+          } else {
+            document.getElementById("goToTop").style.display = "none";
+          }
+        }
+
+        function goTopFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+
+        var base_url = "..",
+            shortcuts = {"edit": 69, "help": 191, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+
+        <script>
+          const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+          function switchTheme(e) {
+              if (e.target.checked) {
+                  localStorage.setItem('sumo-docs-theme', 'dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  toggleSwitch.checked = true;
+              } else {
+                  localStorage.setItem('sumo-docs-theme', 'light');
+                  document.documentElement.setAttribute('data-theme', 'light');
+                  toggleSwitch.checked = false;
+              }
+          }
+
+          toggleSwitch.addEventListener('change', switchTheme, false);
+
+          if (document.documentElement.getAttribute("data-theme") == "dark"){
+              toggleSwitch.checked = true;
+          }
+          </script>
+
+      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Key</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: #495057 !important;">
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help dialog</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search the Documentation</td>
+                  </tr>
+                  <tr>
+                    <td class="edit shortcut"><kbd>e</kbd></td>
+                    <td>Edit current page on GitHub</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+</html>

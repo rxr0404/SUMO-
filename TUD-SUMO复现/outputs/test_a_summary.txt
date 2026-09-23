@@ -1,0 +1,4 @@
+simulated steps : 4000
+total vehicles  : departed=0, in network=33
+total TTS (s)   : 16
+total delay (s) : 1

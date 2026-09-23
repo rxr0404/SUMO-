@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 路网级统计输出：每 120 s 按 edge 聚合一次流量/密度/平均速度/排队等，
+     写入 edgedata_output.xml（对应论文 A §II 中"按路网元素聚合的输出"） -->
+<additional>
+    <edgeData id="edgedata" file="edgedata_output.xml" period="120" excludeEmpty="true"/>
+</additional>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 方案B（调整后-长绿灯）：延长匝道绿灯时间。
+     相位：绿 6s + 黄 1s + 红 3s = 周期 10s。
+     一个周期约放行 2~3 辆车，放行能力 ≈ 900 veh/h > 匝道需求 500 veh/h
+     → 预期匝道基本无排队，同时短红绿灯仍保留"匝道控制"的物理形式。 -->
+<additional>
+    <tlLogic id="RM" type="static" programID="planB_long" offset="0">
+        <phase duration="6" state="G"/>
+        <phase duration="1" state="y"/>
+        <phase duration="3" state="r"/>
+    </tlLogic>
+</additional>

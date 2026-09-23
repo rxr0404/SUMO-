@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 交通调控实验主配置：与主场景完全一致（同路网/同需求/同检测器/同步长），
+     仅匝道信号灯配时（RM）作为实验变量，由 run_experiment.py 通过 TraCI
+     在运行时分别写入三种方案 —— 保证单一变量对照。
+     信号方案文件在 plans/ 目录，如需在 GUI 中直接运行某一方案：
+     sumo-gui -c sim.sumocfg -a ../plans/planA_short_green.add.xml -->
+<configuration>
+    <input>
+        <net-file value="onramp.net.xml"/>
+        <route-files value="rou.xml"/>
+        <additional-files value="detectors.add.xml,stats.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="2000"/>
+        <step-length value="0.5"/>
+    </time>
+    <output>
+        <tripinfo-output value="tripinfo_output.xml"/>
+        <summary-output value="summary_output.xml"/>
+    </output>
+    <report>
+        <no-step-log value="true"/>
+        <duration-log.statistics value="true"/>
+    </report>
+    <gui-only>
+        <gui-settings-file value="gui-settings.xml"/>
+    </gui-only>
+</configuration>

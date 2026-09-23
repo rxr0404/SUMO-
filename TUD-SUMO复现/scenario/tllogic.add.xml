@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 匝道信号灯配时（基础场景 = 自由流基线）：
+     信号灯存在但常绿，匝道车辆自由汇入 —— 对应论文 B §3 中 Test A/B/C 的"无控制基线"。
+     Test D 中 TUD-SUMO 的 set_tl_metering_rate() 会接管此信号灯，动态执行 ALINEA 匝道控制；
+     纯 TraCI 演示脚本也会用原生 traci.trafficlight API 做同样的控制。
+     另外注意：netconvert 默认生成的配时（80s绿+5s红，每90s仅放行1辆车）会导致
+     匝道排队无限增长，因此基础场景必须显式定义常绿程序。 -->
+<additional>
+    <tlLogic id="RM" type="static" programID="free" offset="0">
+        <phase duration="2000" state="G"/>
+    </tlLogic>
+</additional>

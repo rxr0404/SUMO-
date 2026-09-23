@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SUMO 主配置文件：把路网、需求、附加文件、输出、时间设置打包在一起。
+     step-length 0.5 s：更平滑的轨迹与更细的检测器采样，
+     也满足 TUD-SUMO 匝道控制对相位时长 > 步长的要求。 -->
+<configuration>
+    <input>
+        <net-file value="onramp.net.xml"/>
+        <route-files value="rou.xml"/>
+        <additional-files value="detectors.add.xml,stats.add.xml,tllogic.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="2000"/>
+        <step-length value="0.5"/>
+    </time>
+    <output>
+        <tripinfo-output value="tripinfo_output.xml"/>
+        <summary-output value="summary_output.xml"/>
+    </output>
+    <report>
+        <no-step-log value="true"/>
+        <duration-log.statistics value="true"/>
+    </report>
+    <gui-only>
+        <gui-settings-file value="gui-settings.xml"/>
+    </gui-only>
+</configuration>

@@ -1,0 +1,10 @@
+<!-- SUMO-GUI 视图设置：仅在 GUI 模式生效。
+     注意：netconvert 把路网坐标平移了 netOffset=(+1000,+400)（见 onramp.net.xml
+     的 <location>），因此 viewport 的 x/y 必须用平移后的坐标：
+     匝道汇入点 M 真实坐标 (0,0) -> 平移后 (1000,400)。
+     车辆按速度着色（蓝=快，红=慢/堵）。 -->
+<viewsettings>
+    <viewport zoom="1600" x="900" y="310"/>
+    <scheme name="speed"/>
+    <delay value="10"/>
+</viewsettings>

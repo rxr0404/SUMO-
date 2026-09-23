@@ -1,0 +1,6 @@
+metric,value
+n_trips,966
+mean_duration_s,80.70
+median_duration_s,78.50
+mean_timeLoss_s,4.01
+p95_duration_s,101.50

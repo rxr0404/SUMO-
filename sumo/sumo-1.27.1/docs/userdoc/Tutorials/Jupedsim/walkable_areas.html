@@ -1,0 +1,366 @@
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 24 June 2026 23:56:29
+Last edit: 08 June 2026
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta property="og:image" content="../../images/image-facebook.jpg">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1080">
+        <meta property="og:image:height" content="1080">
+
+        
+        
+        <link rel="canonical" href="https://sumo.dlr.de/docs/Tutorials/Jupedsim/walkable_areas.html">
+        <link rel="shortcut icon" href="../../images/favicon.ico">
+        <title>Definition of 2D Walkable Areas - SUMO Documentation</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.all.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-3.7.0.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+
+      <script>
+        // DARK MODE
+        function detectColorScheme(){
+          var theme="light";
+
+          if(localStorage.getItem("sumo-docs-theme")){
+              if(localStorage.getItem("sumo-docs-theme") == "dark"){
+                  var theme = "dark";
+              }
+          } else if(!window.matchMedia) {
+              return false;
+          } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+              var theme = "dark";
+          }
+
+          if (theme=="dark") {
+              document.documentElement.setAttribute("data-theme", "dark");
+          }
+        }
+        detectColorScheme();
+      </script>
+
+    </head>
+
+    <body>
+
+    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary text-center">
+    <div class="container-fluid">
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li class="navitem">
+                        <a href="../../index.html" class="nav-link">Documentation</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../index.html" class="nav-link">Tutorials</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../../FAQ.html" class="nav-link">FAQ</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../../Downloads.html" class="nav-link">Downloads</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../../Publications.html" class="nav-link">Publications</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../../Developer/index.html" class="nav-link">Developer</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="../../ChangeLog.html" class="nav-link">ChangeLog</a>
+                    </li>
+                    <li class="navitem">
+                        <a href="https://eclipse.dev/sumo/contact/" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa-solid fa-magnifying-glass"></i> <u>S</u>earch
+                    </a>
+                </li>
+                    <li class="nav-item">
+                        <a rel="edit" href="https://github.com/eclipse-sumo/sumo/edit/main/docs/web/docs/Tutorials/Jupedsim/walkable_areas.md" class="nav-link"><i class="fa-brands fa-github"></i> <u>E</u>dit on GitHub</a>
+                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    More <i class="fa-solid fa-circle-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item no-arrow-link" href="https://github.com/eclipse/sumo/issues">Report a Bug / Issue / Typo</a>
+                    <a class="dropdown-item" href="../../Editing_Articles.html">Help on editing articles</a>
+                    <a class="dropdown-item" href="https://github.com/eclipse/sumo/commits/main/docs/web">Recent documentation changes</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mkdocs_keyboard_modal">Keyboard Shortcuts</a>
+                    <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
+                    <span class="dropdown-item" id="dark-mode-div">Dark mode <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+                        <input type="checkbox" id="checkbox_theme">
+                    </label></span>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languagedrop" data-toggle="dropdown">
+                    <i class="fa-solid fa-language"></i> Languages <i class="fa-solid fa-circle-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    <span class="dropdown-item">
+                        Translations are generated automatically by Google Translate:
+                    </span>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=de">Deutsch</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=es">Español</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=pt">Português</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=fr">Français</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=it">Italiano</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=zh-CN">简体中文</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=zh-TW">繁體中文</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=tr">Türkçe</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=ja">日本語</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=en&_x_tr_tl=ko">한국어</a>
+                    <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/Tutorials/Jupedsim/walkable_areas.html?_x_tr_sl=auto&_x_tr_tl=en"><i class="fa-solid fa-arrow-right"></i> Other languages</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container-fluid">
+          <div class="row">
+                <div class="col-md-3">
+                  <div class="text-center"><a href="../../index.html" style="display: inline-block; margin: 5px 15px;"><img src="../../images/sumo-logo.png" class="sumoLogo" alt="SUMO Logo" width="120px"></a>
+                <a href="https://www.jupedsim.org" class="no-arrow-link" style="display: inline-block; margin-top: 5px;"><img src="../../images/jupedsim-logo.svg" alt="SUMO Logo" width="120px"></a></div>
+                  
+<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed mb-1" data-toggle="collapse" data-target="#toc-collapse" title="Contents">
+            <span class="fa-solid fa-angle-down"></span>
+        </button>
+    </div>
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary toc-scroll toc">
+        <ul class="nav flex-column bs-sidenav">
+            <p style="margin-top:5px; color:#777777;" class="text-center">Contents</p>
+            <li class="nav-item main"><a href="#configuration_options">Configuration Options</a></li>
+            <li class="nav-item main"><a href="#drawing_in_netedit">Drawing in netedit</a></li>
+            <li class="nav-item main"><a href="#import_dxf_file">Import dxf File</a></li>
+        </ul>
+    </div>
+
+    <div class="admonition conference" style="position: sticky; margin-top: 20px; margin-bottom:10px;">
+        <p>visit <a class="no-arrow-link" href="https://eclipse.dev/sumo">eclipse.dev/sumo</a></p>
+    </div>
+
+</div>
+                </div>
+                <div class="col-md-9 main-area" role="main">
+                   <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
+                  <ul class="breadcrumbs">
+    <script>
+        var pagePath = "/docs/Tutorials/Jupedsim/walkable_areas.html";
+        var splitUrl = pagePath.split("/");
+        splitUrl.pop();
+        splitUrl.shift();
+        if (splitUrl[0] == 'docs') splitUrl.shift();
+        var homeLink = "../../index.html";
+        document.write('<li class="breadcrumb-item"><a href="' + homeLink + '"><i class="fa-solid fa-house"></i></a></li>');
+        var prev = '';
+
+        var dirLink = splitUrl.map(function (el) {
+        el = prev + el; prev = el + '/'; return el;
+        });
+
+        for (let i = 0; i < splitUrl.length; i++) {
+            document.write("<li class=\"breadcrumb-item\"><a class=\"no-arrow-link\" href=\"../../" + dirLink[i] + "\">" + splitUrl[i] + "</a></li>");
+        }
+    </script>
+    <li class="breadcrumb-item active">Definition of 2D Walkable Areas</li>
+</ul>
+                  <h1 class="h-title">Definition of 2D Walkable Areas</h1>
+                  
+                  
+
+<p>This tutorial demonstrates the different possibilities to define 2D walkable areas in <em>SUMO</em> that are accessible for <em>JuPedSim</em> agents. We use the configuration files of the crossing tutorial and add additional 2D walkable areas by drawing polygons in <em>netedit</em> and by importing a dxf file.</p>
+<p>You can find the used dxf file and the resulting <strong>configuration files</strong> for this tutorial <a href="https://github.com/PedestrianDynamics/SUMO-JuPedSim-Simulations/tree/main/tutorials/areas">here</a>.</p>
+<h2 id="configuration_options">Configuration Options<a class="headerlink" href="#configuration_options" title="Permanent link">#</a></h2>
+<p>There are three different ways to define 2D walkable areas for <em>SUMO-JuPedSim</em>:</p>
+<ul>
+<li>Automatic generation of a walkable area based on pedestrian network elements in <em>SUMO</em>. This approach was already demonstrated in the <a href="crossing-simulation.html">crossing tutorial</a>. <em>SUMO</em> automatically parses sidewalks, footpaths and crossings to a 2D space, if <em>JuPedSim</em> is chosen as pedestrian model for the simulation scenario.</li>
+</ul>
+<ul>
+<li>Drawing of walkable area and obstacles in <em>netedit</em></li>
+</ul>
+<ul>
+<li>Parsing a dxf file containing the walkable area and obstacles to an additional-file (xml) and importing it in <em>SUMO</em>.</li>
+</ul>
+<h2 id="drawing_in_netedit">Drawing in <em>netedit</em><a class="headerlink" href="#drawing_in_netedit" title="Permanent link">#</a></h2>
+<p>Start <em>netedit</em> and load the sumoconfig file from the crossing tutorial. When you are in the <strong>Network supermode</strong> activate the <em>Polygon mode</em>. In the <em>Shapes menu</em> on the left side, you can see a list of available shape elements including <em>JuPedSim</em> elements: walkable area and obstacles.</p>
+<p><img alt="network and jupedsim shapes" src="../../images/jps_areas_network_jupedsim_shapes.png" /></p>
+<p>Select <em>jupedsim.walkablk_area</em> and click on <em>Start drawing</em>. Draw the walkable area and press <em>Enter</em> to close the polygon and finish the drawing.</p>
+<p><img alt="network walkable area" src="../../images/jps_areas_network_walkable_area.png" /></p>
+<p>You can also draw obstacles the same way using the element type <em>jupedsim.obstacle</em>.</p>
+<p><img alt="network obstacles" src="../../images/jps_areas_network_obstacles.png" /></p>
+<p>When you open <em>sumo-gui</em> you can see that the walkable areas generated from the network and the drawn one have been merged (light blue area). Obstacles are shown in light pink.</p>
+<p><img alt="sumo-gui polygons merged" src="../../images/jps_areas_sumogui_polygons_merged.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While overlapping areas (with <em>SUMO</em> network) are merged – make sure that obstacles to not block the <em>SUMO</em> network elements! Agents cannot reroute when moving on an <em>SUMO</em> edge.</p>
+</div>
+<h2 id="import_dxf_file">Import dxf File<a class="headerlink" href="#import_dxf_file" title="Permanent link">#</a></h2>
+<p>It’s also possible to import a dxf file containing a detailed map of pedestrian facilities into <em>netedit</em>. The dxf file must consist of two layers: a layer with one polygon of the walkable area und another layer containing the polygons for the obstacles. All polygons must be simple and closed. You can download an example dxf file <a href="https://github.com/PedestrianDynamics/SUMO-JuPedSim-Simulations/tree/main/tutorials/areas">here</a>. To parse the dxf file to an xml file which <em>SUMO</em> can process use the script via <em>Tools &gt; Import &gt; dxf2jupedsim</em>.</p>
+<p><img alt="dxf2jupedsim" src="../../images/jps_areas_dxf2jupedsim.png" /></p>
+<p>Choose the input file and the name of the output file. Set projection to <em>none</em> as the given example is not a georeferenced map. If you use your own file, change the name of the layers according to your dxf file.</p>
+<p><img alt="dxf2jupedsim options" src="../../images/jps_areas_dxf2jupedim_options.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When choosing the dxf file in file finder select the file name ending <em>All files(\</em>)* as only xml files are listed by default.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to select the desired output path. Otherwise, the file is stored at the directory from which <em>netedit</em> is being executed.</p>
+</div>
+<p>Click <em>Run</em> and check the console output. If the processed is finished the additional-file should have been created in the selected folder. Now you need to add the generated file to the <em>SUMO</em> configuration.  You can do that via the <em>SUMO</em> options menu or by editing the sumoconfig file manually:</p>
+<p><img alt="additional xml" src="../../images/jps_areas_additional_xml.png" /></p>
+<p>Restart <em>netedit</em> and load the new sumoconfig file. You can see a second walkable area generated from the dxf file.</p>
+<p><img alt="netedit result" src="../../images/jps_areas_netedit_result.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If some obstacles are not shown, make sure that they are on a visible layer. You can edit their layer in the add.xml file.</p>
+</div>
+<p>To inspect the complete walkable area used for the simulation we open <em>sumo-gui</em>. When configuring routes for <em>JuPedSim</em> agents that use different walkable areas (both user-defined and those automatically generated from the network), there are a few rules to bear in mind which are described in the next tutorial (to be released soon).</p>
+<p><img alt="sumogui result" src="../../images/jps_areas_sumogui_result.png" /></p>
+                </div>
+          </div>
+          <button onclick="goTopFunction()" id="goToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+        </div>
+
+        <footer class="col-md-12">
+          
+            <br><small><i>This page was last edited on: 08 June 2026</i></small>
+          
+          <hr>
+            <p>Copyright &copy; 2001-2026 German Aerospace Center (DLR) and others.</p>
+          <p>Follow us on <a class="no-arrow-link" href="https://www.twitter.com/eclipsesumo/"><i class="fa-brands fa-x-twitter"></i></a> <a class="no-arrow-link" href="https://www.facebook.com/simulationofurbanmobility/"><i class="fa-brands fa-facebook"></i></a> <a class="no-arrow-link" href="https://www.instagram.com/eclipse.sumo/"><i class="fa-brands fa-instagram"></i></a> <a class="no-arrow-link" href="https://www.threads.net/@eclipse.sumo"><i class="fa-brands fa-threads"></i></a>
+          | Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a></p>
+        </footer>
+
+      <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body" style="color: #495057 !important;">
+                <p>Enter your search terms:</p>
+                <script async src="https://cse.google.com/cse.js?cx=004302551366764109984:1kpgtzrm6kv"></script>
+                <div class="gcse-search"></div>
+            </div>
+        </div>
+    </div>
+</div>
+      <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("goToTop").style.display = "block";
+          } else {
+            document.getElementById("goToTop").style.display = "none";
+          }
+        }
+
+        function goTopFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+
+        var base_url = "../..",
+            shortcuts = {"edit": 69, "help": 191, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <script>
+          const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+          function switchTheme(e) {
+              if (e.target.checked) {
+                  localStorage.setItem('sumo-docs-theme', 'dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  toggleSwitch.checked = true;
+              } else {
+                  localStorage.setItem('sumo-docs-theme', 'light');
+                  document.documentElement.setAttribute('data-theme', 'light');
+                  toggleSwitch.checked = false;
+              }
+          }
+
+          toggleSwitch.addEventListener('change', switchTheme, false);
+
+          if (document.documentElement.getAttribute("data-theme") == "dark"){
+              toggleSwitch.checked = true;
+          }
+          </script>
+
+      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Key</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: #495057 !important;">
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help dialog</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search the Documentation</td>
+                  </tr>
+                  <tr>
+                    <td class="edit shortcut"><kbd>e</kbd></td>
+                    <td>Edit current page on GitHub</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+</html>

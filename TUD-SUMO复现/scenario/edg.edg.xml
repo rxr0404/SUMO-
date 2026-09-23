@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 边（路段）定义：
+     main1: 主线上游段，2 车道，120 km/h，优先级 3
+     main2: 主线汇入段，3 车道（最外侧 lane0 = 匝道加速车道），120 km/h
+     ramp1: 匝道段（信号灯停车线之前），1 车道，90 km/h
+     ramp2: 匝道段（信号灯到汇入点），1 车道，90 km/h
+     优先级 priority 用于路口路权判定 -->
+<edges>
+    <edge id="main1" from="W"  to="M"  numLanes="2" speed="33.33" priority="3"/>
+    <edge id="main2" from="M"  to="E"  numLanes="3" speed="33.33" priority="3"/>
+    <edge id="ramp1" from="S"  to="RM" numLanes="1" speed="25"    priority="1"/>
+    <edge id="ramp2" from="RM" to="M"  numLanes="1" speed="25"    priority="1"/>
+</edges>
